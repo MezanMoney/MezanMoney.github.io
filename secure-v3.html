@@ -6,7 +6,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net 'sha256-FpzTVtM5hGxSWQukg+/y2iBnsiqoq6IO71u6cXMIMtI='; style-src 'sha256-1o3W0LLwqd/eA2vaCaMJiBb/pdEN6M5UOoWTnOMNl9w='; img-src 'self' data:; worker-src 'self' blob:; connect-src 'self' https://cdn.jsdelivr.net https://snhmckjyhiizzsqgraec.supabase.co wss://snhmckjyhiizzsqgraec.supabase.co; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self';">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net 'sha256-sUkX2b+86OyxNwnZl6GhqACTRoRdwnH1IulhGyyl2l0='; style-src 'sha256-lighCUdHySGS/yJbiiza2n0UYB+ibaG/6bW8cFyry3Q='; img-src 'self' data:; worker-src 'self' blob:; connect-src 'self' https://cdn.jsdelivr.net https://snhmckjyhiizzsqgraec.supabase.co wss://snhmckjyhiizzsqgraec.supabase.co; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self';">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
 <meta name="theme-color" content="#effaf7">
 <meta name="robots" content="noindex,nofollow,noarchive">
@@ -489,6 +489,40 @@ body.sheetOpen .bottom{display:none}
 .bottom #budgetNav{grid-column:2}
 .bottom #insightsNav{grid-column:4}
 .bottom #peopleNav{grid-column:5}
+
+.wCard{border:1px solid #eaf2ef;background:#fff;border-radius:16px;padding:11px;margin-top:9px}
+.wCardTop{display:grid;grid-template-columns:34px 1fr auto;gap:9px;align-items:center}
+.wCardName h4{font-size:11.5px;margin:0;color:#12463c;font-weight:850}
+.wChips{display:flex;gap:4px;flex-wrap:wrap;margin-top:3px}
+.wChip{font-style:normal;font-size:7.5px;font-weight:800;background:#f2f7f5;color:#5f7d76;border-radius:6px;padding:2px 5px}
+.wCardVal{text-align:end}
+.wCardVal b{font-size:13px;color:#0b3a31;display:block}
+.wCardVal small{font-size:8px;display:block;margin-top:2px}
+.wBar{height:5px;border-radius:3px;background:#eef4f2;overflow:hidden;margin:9px 0 7px}
+.wBar i{display:block;height:100%}
+.wCardFoot{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.wCardFoot span{font-size:8px;color:#8ba39c;font-weight:700}
+.wSpark{width:74px;height:22px;display:block;flex:0 0 auto}
+.wMat{margin-top:8px;font-size:8px;font-weight:800;border-radius:8px;padding:5px 7px;background:#f2f7fd;color:#3c5c81}
+.wMat.soon{background:#fff8e7;color:#7a6122}
+.wMat.late{background:#fdeeea;color:#a8492f}
+.peopleHero{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.peopleHero>div:first-child span{font-size:9px;color:#7a938c;font-weight:800;display:block}
+.peopleHero>div:first-child b{font-size:25px;color:#0b3a31;display:block;line-height:1.2}
+.peopleHero>div:first-child b small{font-size:11px;color:#7a938c}
+.peopleSplit{display:flex;gap:8px}
+.peopleSplit>div{background:#f5faf8;border-radius:12px;padding:8px 11px;text-align:center;min-width:52px}
+.peopleSplit span{font-size:16px;font-weight:900;color:#12463c;display:block}
+.peopleSplit small{font-size:7.5px;color:#8ba39c;display:block;margin-top:1px}
+
+.insightRow{display:grid;grid-template-columns:28px 1fr;gap:10px;align-items:start;padding:11px 0;border-top:1px solid #f1f7f5}
+.insightRow:first-child{border-top:0}
+.insightRow i{font-style:normal;width:27px;height:27px;border-radius:9px;display:grid;place-items:center;font-size:12px;font-weight:900}
+.insightRow b{font-size:11.5px;display:block;line-height:1.55;font-weight:850}
+.insightRow small{font-size:9px;display:block;margin-top:4px;line-height:1.7;color:#7d948e}
+.insightRow.warn i{background:#fbe7d9;color:#9a5a1c}.insightRow.warn b{color:#7a4a16}
+.insightRow.good i{background:#d9f2e6;color:#0b6d5b}.insightRow.good b{color:#0b5c4c}
+.insightRow.info i{background:#e2ecfb;color:#1a5390}.insightRow.info b{color:#204a72}
 </style>
 </head>
 <body>
@@ -912,8 +946,12 @@ body.sheetOpen .bottom{display:none}
 <section class="card todayStats">
   <div class="tsGrid">
     <div class="tsCard"><span>هذا الأسبوع</span><b id="tsWeekSpent">0</b><small id="tsWeekOf">من 0</small></div>
-    <div class="tsCard"><span>متوسط يومك</span><b id="tsAvg7">0</b><small>آخر 7 أيام</small></div>
+    <div class="tsCard"><span>متوسط يومك</span><b id="tsAvg7">0</b><small id="tsAvg7Sub">آخر 7 أيام</small></div>
   </div>
+</section>
+<section id="insightCard" class="card hidden">
+  <div class="sectionhead"><div><h2>ميزان يقول</h2><p>قراءة لوضعك، مو أرقام فقط</p></div></div>
+  <div id="insightFeed"></div>
 </section>
 
 
@@ -959,7 +997,7 @@ body.sheetOpen .bottom{display:none}
       <div id="commitList"></div>
     </section>
   </div>
-  <div id="peoplePane" class="hidden"><section id="tourSplitsCard" class="card"><div class="sectionhead"><div><h2>القطات 👥</h2><p>تاب مستقل لإدارة الأشخاص والتحصيل والمتابعة</p></div><button id="openSplitsBtn" class="ghost">فتح القطات</button></div><div id="splitList" class="splitlist"></div></section>
+  <div id="peoplePane" class="hidden"><section class="card"><div class="peopleHero"><div><span>لك عند الناس</span><b><span id="peopleOwed">0</span> <small>ر.س</small></b></div><div class="peopleSplit"><div><span id="peopleSplitsN">0</span><small>قطات</small></div><div><span id="peopleLoansN">0</span><small>سلف</small></div></div></div><div id="peopleNotes"></div></section><section id="tourSplitsCard" class="card"><div class="sectionhead"><div><h2>القطات 👥</h2><p>تاب مستقل لإدارة الأشخاص والتحصيل والمتابعة</p></div><button id="openSplitsBtn" class="ghost">فتح القطات</button></div><div id="splitList" class="splitlist"></div></section>
   <div class="segTabs sub"><button id="segSplits" class="on" type="button">القطات</button><button id="segLoans" type="button">السلف</button></div>
   <div id="loansPane" class="hidden">
     <section class="card">
@@ -1342,7 +1380,7 @@ body.sheetOpen .bottom{display:none}
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script>
 (()=>{
-const APP_VERSION='6.0.1';
+const APP_VERSION='6.2.0';
 const SUPABASE_URL='https://snhmckjyhiizzsqgraec.supabase.co';
 const SUPABASE_KEY='sb_publishable_jBKntvH70OkSa9zgrMjRjw_XNC2sSq0';
 const OWNER_EMAIL='fs.almutairi@outlook.com';
@@ -2003,6 +2041,7 @@ function renderV5Intelligence(){
    if($('insightsNav'))$('insightsNav').classList.toggle('on',current==='insights');}
 try{renderMoneyPanes()}catch(e){console.error('money panes',e)}
 try{renderTodayStats()}catch(e){console.error('today stats',e)}
+try{renderInsights()}catch(e){console.error('insights',e)}
  for(const[id,tab]of[['homeNav','home'],['budgetNav','budget'],['insightsNav','insights'],['splitsNav','splits']])$(id)?.classList.toggle('on',current===tab);
  const labels={home:`${shortDays[fdate().getDay()]} • ميزانية اليوم ${fmt(activeDayBudget())} ر.س`,budget:'ميزانية الفئات ومسار الدورة',insights:'التحليل المالي الذكي',splits:'إدارة القطات والتحصيل'};$('dayLabel').textContent=labels[current]||labels.home;
  const classRows=classificationReviewRows(),paces=CATEGORY_LIST.map(categoryPace).filter(x=>x.budget>0),badPaces=paces.filter(x=>['warn','fast','over'].includes(x.status)),anoms=unusualTransactions();$('attentionClassCount').textContent=classRows.length;$('attentionBudgetCount').textContent=badPaces.length;$('attentionAnomalyCount').textContent=anoms.length;$('attentionTotal').textContent=classRows.length+badPaces.length+anoms.length;
@@ -2355,12 +2394,31 @@ function renderWealth(){
   $('wealthNotes').innerHTML=notes.map(([c,i,x])=>`<div class="insightNote ${c}"><i>${i}</i><span>${x}</span></div>`).join('');
 
   const cur=monthKeyOf();
-  $('wealthList').innerHTML=state.wealth.accounts.length?state.wealth.accounts.map(a=>{
-    const g=accountGain(a),meta=wealthTypeMeta(a.type),m=a.meta||{};
-    const old=!isFixedTerm(a.type)&&(()=>{const sn=accountLatest(a.id);return !sn||sn.monthKey<cur})();
+  $('wealthList').innerHTML=state.wealth.accounts.length?state.wealth.accounts.slice().sort((x,y)=>accountGain(y).value-accountGain(x).value).map(a=>{
+    const g=accountGain(a),meta=wealthTypeMeta(a.type),m=a.meta||{},c=WCOLORS[a.type]||'#888780';
+    const cur=monthKeyOf();
+    const stale=!isFixedTerm(a.type)&&(()=>{const sn=accountLatest(a.id);return !sn||sn.monthKey<cur})();
     const dd=daysToMaturity(a);
-    const sub=[meta.label,m.platform||'',dd!==null&&dd>=0?`تستحق بعد ${dd} يوم`:'',m.ratePct?`${m.ratePct}% متوقع`:''].filter(Boolean).join(' • ');
-    return `<div class="wRow" data-wealth="${a.id}"><div class="wIcon" style="background:${(WCOLORS[a.type]||'#888780')}1f;color:${WCOLORS[a.type]||'#888780'}">${meta.icon}</div><div><h4>${esc(a.name)}</h4><small>${old?'<i class="staleDot"></i>':''}${esc(sub)}</small></div><div class="v"><b>${fmt(g.value)}</b><small class="${g.gain>=0?'stConfirmed':'stMissed'}">${g.cost>0?(g.gain>=0?'+':'−')+fmt(Math.abs(g.gain))+' • '+Math.abs(g.pct).toFixed(1)+'%':'—'}</small></div></div>`
+    const keys=wealthMonthKeys(6);
+    const vals=keys.map(k=>{const r=state.wealth.snapshots.filter(x=>x.accountId===a.id&&x.monthKey<=k).sort((p,q)=>p.monthKey<q.monthKey?-1:1);return r.length?+r[r.length-1].value||0:0});
+    const mx=Math.max(1,...vals),mn=Math.min(...vals);
+    const rng=Math.max(1,mx-mn);
+    const pts=vals.map((v,idx)=>`${idx/(vals.length-1||1)*100},${22-((v-mn)/rng)*18}`).join(' ');
+    const spark=vals.some(v=>v>0)?`<svg class="wSpark" viewBox="0 0 100 24" preserveAspectRatio="none"><polyline points="${pts}" fill="none" stroke="${c}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`:'';
+    const bar=g.cost>0?`<div class="wBar"><i style="width:${Math.min(100,Math.max(2,g.value/Math.max(g.cost,g.value)*100))}%;background:${c}"></i></div>`:'';
+    const chips=[meta.label,m.platform||'',m.fundKind||'',m.market||'',m.ratePct?`عائد ${m.ratePct}%`:''].filter(Boolean)
+      .slice(0,3).map(x=>`<em class="wChip">${esc(x)}</em>`).join('');
+    const mat=dd!==null?`<div class="wMat ${dd<0?'late':dd<=45?'soon':''}">${dd<0?'استحقت من '+Math.abs(dd)+' يوم':'تستحق بعد '+dd+' يوم'}${expectedMaturityValue(a)?' • المتوقع '+fmt(expectedMaturityValue(a)):''}</div>`:'';
+    return `<div class="wCard" data-wealth="${a.id}">
+      <div class="wCardTop">
+        <div class="wIcon" style="background:${c}1f;color:${c}">${meta.icon}</div>
+        <div class="wCardName"><h4>${esc(a.name)}${stale?'<i class="staleDot"></i>':''}</h4><div class="wChips">${chips}</div></div>
+        <div class="wCardVal"><b>${fmt(g.value)}</b><small class="${g.gain>=0?'stConfirmed':'stMissed'}">${g.cost>0?(g.gain>=0?'▲ ':'▼ ')+fmt(Math.abs(g.gain))+' • '+Math.abs(g.pct).toFixed(1)+'%':'—'}</small></div>
+      </div>
+      ${bar}
+      <div class="wCardFoot"><span>${g.cost>0?'رأس المال '+fmt(g.cost):'ما سجّلت رأس المال'}</span>${spark}</div>
+      ${mat}
+    </div>`
   }).join(''):`<div class="emptyBlock"><b>ابدأ بمتابعة استثماراتك</b><small>وديعة، صكوك، صندوق، أسهم، ذهب أو عقار. كل نوع له حقوله الخاصة</small><button class="ghost" onclick="document.getElementById('addWealthBtn').click()">إضافة أول حساب</button></div>`;
   document.querySelectorAll('[data-wealth]').forEach(el=>el.onclick=()=>openWealthSheet(el.dataset.wealth));
 }
@@ -2469,7 +2527,7 @@ function renderMoneyPanes(){
   $('splitsPane')?.classList.toggle('hidden',ss!=='splits');$('loansPane')?.classList.toggle('hidden',ss!=='loans');
   if(bs==='cycle')renderCycleFlow();
   if(is==='wealth')renderWealth();
-  if(bs==='people'&&ss==='loans')renderLoans();
+  if(bs==='people'){try{renderPeopleHero()}catch(e){}if(ss==='loans')renderLoans()}
 }
 
 function daysSinceBackup(){
@@ -2868,10 +2926,110 @@ function actionDone(msg,el){ if(el)flashOk(el); try{render()}catch(e){} if(msg)t
 
 function renderTodayStats(){
   if(!$('tsWeekSpent'))return;
-  const ws=weekSpend?weekSpend():0, wb=weekBudget?weekBudget():0;
-  $('tsWeekSpent').textContent=fmt(ws);$('tsWeekOf').textContent='من '+fmt(wb);
-  let tot=0;for(let d=1;d<=7;d++){const x=new Date();x.setDate(x.getDate()-d);tot+=spendOnDay(x)}
-  $('tsAvg7').textContent=fmt(tot/7)
+  const ws=weekSpend(), wb=weeklyBudget();
+  $('tsWeekSpent').textContent=fmt(ws);
+  $('tsWeekOf').textContent='من '+fmt(wb);
+  // متوسط الأيام التي فيها نشاط فعلي خلال آخر 7 أيام
+  let tot=0,n=0;
+  for(let d=1;d<=7;d++){const x=new Date();x.setDate(x.getDate()-d);const v=spendOnDay(x);if(v>0){tot+=v;n++}}
+  $('tsAvg7').textContent=fmt(n?tot/n:0);
+  const lbl=$('tsAvg7Sub');if(lbl)lbl.textContent=n?`${n} يوم فيه صرف`:'ما فيه صرف مسجّل';
+}
+
+function renderPeopleHero(){
+  if(!$('peopleOwed'))return;
+  ensureIncomeShape();
+  const loans=loansOutstanding();
+  const splits=(state.splits||[]).reduce((a,s)=>a+(typeof splitRemaining==='function'?splitRemaining(s):0),0);
+  $('peopleOwed').textContent=fmt(loans+splits);
+  $('peopleSplitsN').textContent=(state.splits||[]).filter(s=>(typeof splitRemaining==='function'?splitRemaining(s):0)>0.009).length;
+  $('peopleLoansN').textContent=loansOpen().length;
+  const due=loansDue().slice(0,3);
+  $('peopleNotes').innerHTML=due.length?due.map(l=>{
+    const st=loanStatus(l);
+    return `<div class="insightNote ${st[0]==='stMissed'?'noteWarn':'noteInfo'}"><i>◷</i><span>${esc(l.name)} — ${fmt(loanRemaining(l))} ر.س • ${st[1]}</span></div>`
+  }).join(''):(loans+splits>0?'<div class="insightNote noteGood"><i>✓</i><span>ما فيه مستحق قريب</span></div>':'');
+}
+
+// ============ محرك الرؤى: يتنبأ ويقارن، لا يعرض أرقامًا فقط ============
+function cycleElapsedDays(){
+  const b=currentCycle(),now=fdate();
+  let n=0,d=new Date(b.start);
+  while(d<=now&&d<b.endExclusive){n++;d.setDate(d.getDate()+1)}
+  return Math.max(1,n)
+}
+function cycleTotalDays(){
+  const b=currentCycle();let n=0,d=new Date(b.start);
+  while(d<b.endExclusive){n++;d.setDate(d.getDate()+1)}
+  return Math.max(1,n)
+}
+// ١ توقع نهاية الدورة
+function cycleForecast(){
+  const spent=monthSpend(),elapsed=cycleElapsedDays(),total=cycleTotalDays();
+  if(spent<=0||elapsed<2)return null;
+  const rate=spent/elapsed, projected=rate*total, left=total-elapsed;
+  const budget=(()=>{const a=cycleAvailable();return a===null?plannedSpendBudget():a})();
+  if(!(budget>0))return null;
+  const diff=projected-budget;
+  const safePerDay=left>0?Math.max(0,(budget-spent)/left):0;
+  return {rate,projected,budget,diff,left,elapsed,total,spent,safePerDay}
+}
+// ٢ مقارنة بالدورة السابقة عند نفس اليوم
+function previousCycleAtSameDay(){
+  const b=currentCycle();
+  const prevStart=payDayFor(new Date(b.start.getFullYear(),b.start.getMonth()-1,1).getFullYear(),
+                            new Date(b.start.getFullYear(),b.start.getMonth()-1,1).getMonth());
+  const elapsed=cycleElapsedDays();
+  const end=new Date(prevStart);end.setDate(end.getDate()+elapsed);
+  if(end>b.start)return null;
+  const v=sum(prevStart,end);
+  return v>0?{spent:v,elapsed}:null
+}
+// ٣ أثر أكبر عادة على السنة
+function topHabit(){
+  const b=currentCycle();
+  const rows=state.txns.filter(t=>!t.ignored&&(+t.impact||0)>0&&new Date(t.ts)>=b.start&&new Date(t.ts)<b.endExclusive);
+  if(rows.length<4)return null;
+  const byCat={};
+  rows.forEach(t=>{const c=t.category||'أخرى';byCat[c]=byCat[c]||{n:0,sum:0};byCat[c].n++;byCat[c].sum+=+t.impact||0});
+  const top=Object.entries(byCat).sort((a,b2)=>b2[1].sum-a[1].sum)[0];
+  if(!top)return null;
+  const total=rows.reduce((a,t)=>a+(+t.impact||0),0);
+  const perCycle=top[1].sum/Math.max(1,cycleElapsedDays())*cycleTotalDays();
+  return {cat:top[0],sum:top[1].sum,n:top[1].n,share:total>0?top[1].sum/total*100:0,perYear:perCycle*12}
+}
+function buildInsights(){
+  const out=[];
+  const f=cycleForecast();
+  if(f){
+    if(f.diff>0.5)
+      out.push({k:'warn',i:'▲',t:`بهذا المعدل بتتجاوز ميزانية الدورة بـ ${fmt(f.diff)} ر.س`,
+        s:`صرفت ${fmt(f.spent)} في ${ltr(f.elapsed)} يوم • الآمن ${fmt(f.safePerDay)} ر.س يوميًا لباقي ${ltr(f.left)} يوم`});
+    else
+      out.push({k:'good',i:'✓',t:`ماشي على المسار — متوقع تنهي الدورة بـ ${fmt(f.projected)} ر.س`,
+        s:`أقل من ميزانيتك بـ ${fmt(Math.abs(f.diff))} ر.س • تقدر تصرف ${fmt(f.safePerDay)} يوميًا`});
+  }
+  const p=previousCycleAtSameDay();
+  if(p&&f){
+    const d=f.spent-p.spent, pct=p.spent>0?Math.abs(d)/p.spent*100:0;
+    if(pct>=5)
+      out.push({k:d>0?'warn':'good',i:d>0?'▲':'▼',
+        t:`${d>0?'أعلى':'أقل'} من الدورة الماضية بـ ${Math.round(pct)}%`,
+        s:`في نفس اليوم كنت صرفت ${fmt(p.spent)} ر.س`});
+  }
+  const h=topHabit();
+  if(h&&h.perYear>0)
+    out.push({k:'info',i:'◷',t:`${h.cat} أكبر بند عندك — ${Math.round(h.share)}% من مصروفك`,
+      s:`بهذا المعدل ${fmt(h.perYear)} ر.س في السنة • ${ltr(h.n)} عملية هذي الدورة`});
+  return out
+}
+function renderInsights(){
+  const host=$('insightFeed');if(!host)return;
+  const items=buildInsights();
+  const card=$('insightCard');
+  if(card)card.classList.toggle('hidden',!items.length);
+  host.innerHTML=items.map(x=>
+    `<div class="insightRow ${x.k}"><i>${x.i}</i><div><b>${x.t}</b><small>${x.s}</small></div></div>`).join('')
 }
 
 function render(){
