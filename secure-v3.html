@@ -6,7 +6,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net 'sha256-dGopdQgbItsZKfc9S2sDe5tbHvWUI1bQlQmONFfglyM='; style-src 'sha256-lighCUdHySGS/yJbiiza2n0UYB+ibaG/6bW8cFyry3Q='; img-src 'self' data:; worker-src 'self' blob:; connect-src 'self' https://cdn.jsdelivr.net https://snhmckjyhiizzsqgraec.supabase.co wss://snhmckjyhiizzsqgraec.supabase.co; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self';">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net 'sha256-1FplucZ95PMvLDhkqqSUY0uNrrng7REe0m+4x1pCiWs='; style-src 'sha256-6d5g592NE0PRDxCFlg/7t4Ps0hiB0lXR6i3Cs0odLCY='; img-src 'self' data:; worker-src 'self' blob:; connect-src 'self' https://cdn.jsdelivr.net https://snhmckjyhiizzsqgraec.supabase.co wss://snhmckjyhiizzsqgraec.supabase.co; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self';">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
 <meta name="theme-color" content="#effaf7">
 <meta name="robots" content="noindex,nofollow,noarchive">
@@ -523,6 +523,16 @@ body.sheetOpen .bottom{display:none}
 .insightRow.warn i{background:#fbe7d9;color:#9a5a1c}.insightRow.warn b{color:#7a4a16}
 .insightRow.good i{background:#d9f2e6;color:#0b6d5b}.insightRow.good b{color:#0b5c4c}
 .insightRow.info i{background:#e2ecfb;color:#1a5390}.insightRow.info b{color:#204a72}
+
+.overBanner{display:none}
+.overBanner.show{display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:start;margin:0 0 11px;border-radius:15px;padding:11px 12px;background:#fdeeea;border:1px solid #f2cfc4}
+.overBanner.show i{font-style:normal;width:29px;height:29px;border-radius:10px;background:#f7d6cb;color:#a8492f;display:grid;place-items:center;font-size:13px;font-weight:900}
+.overBanner.show b{font-size:11.5px;color:#8d3a24;display:block;line-height:1.5;font-weight:850}
+.overBanner.show small{font-size:9px;color:#9c5943;display:block;margin-top:4px;line-height:1.7}
+.overBanner.show.warn{background:#fff8e7;border-color:#ecdaa8}
+.overBanner.show.warn i{background:#f6e3ae;color:#7a6122}
+.overBanner.show.warn b{color:#6f5c26}
+.overBanner.show.warn small{color:#87703a}
 </style>
 </head>
 <body>
@@ -943,7 +953,7 @@ body.sheetOpen .bottom{display:none}
 <header><div class="brand"><small id="dayLabel">لوحة التحكم المالية</small><h1>ميزان <span class="version" id="headVersion">Secure</span></h1></div><div class="secureHeadActions"><button class="iconbtn" id="privacyBtn" type="button" aria-label="إخفاء الأرقام" aria-pressed="false"><span class="eyeOn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg></span><span class="eyeOff"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.6 6.2A9.9 9.9 0 0 1 12 6c6.5 0 10 7 10 7a17.6 17.6 0 0 1-3.2 4.1"/><path d="M6.6 6.7A17.6 17.6 0 0 0 2 13s3.5 7 10 7a9.8 9.8 0 0 0 4.5-1.1"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/><path d="m3 3 18 18"/></svg></span></button><button class="iconbtn hidden" id="adminBtn" type="button">🔐</button><button class="iconbtn" id="settingsBtn" type="button">⚙️</button></div></header>
 <main id="homeView"><div id="backupBanner" class="backupBanner hidden"><span id="backupBannerText"></span><button id="backupBannerBtn" type="button">نزّل نسخة</button></div>
 <section id="tourToday" class="card hero"><div><div class="muted">المتبقي اليوم</div><div class="big"><span id="todayRemaining">100</span> <small>ر.س</small></div><div id="todaySpend" class="muted">صرفت 0 من 100 ر.س</div><div id="statusPill" class="pill">✓ على المسار</div></div><div id="ring" class="ring"><div class="ringin"><strong id="pct">0%</strong><span>استهلاك</span></div></div><div id="tourSafe" class="safehero"><div><span>Safe to Spend</span><small>اليوم + الأسبوع + الشهر</small><button id="canBuyBtn" class="heroQuickAction" type="button">هل أقدر؟</button></div><b><span id="safeSpend">0</span> ر.س</b></div></section>
-<section class="card todayStats">
+<div id="overBanner" class="overBanner"></div><section class="card todayStats">
   <div class="tsGrid">
     <div class="tsCard"><span>هذا الأسبوع</span><b id="tsWeekSpent">0</b><small id="tsWeekOf">من 0</small></div>
     <div class="tsCard"><span>متوسط يومك</span><b id="tsAvg7">0</b><small id="tsAvg7Sub">آخر 7 أيام</small></div>
@@ -1380,7 +1390,7 @@ body.sheetOpen .bottom{display:none}
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script>
 (()=>{
-const APP_VERSION='6.2.1';
+const APP_VERSION='6.3.0';
 const SUPABASE_URL='https://snhmckjyhiizzsqgraec.supabase.co';
 const SUPABASE_KEY='sb_publishable_jBKntvH70OkSa9zgrMjRjw_XNC2sSq0';
 const OWNER_EMAIL='fs.almutairi@outlook.com';
@@ -1811,8 +1821,37 @@ function merchantDbBest(mk){let best=null;for(const m of MERCHANT_DB)for(const a
 function monthStartOffset(offset=0){return cycleByOffset(offset)}
 function monthPlanFor(bounds){return cyclePlanFor(bounds)}
 function monthSpendFor(bounds){return sum(bounds.start,bounds.endExclusive)}
-function adaptiveTargets(){const ws=wstart(),today=fdate(),idx=today.getDay(),track=trackingStartDate(),bases=Array.from({length:7},(_,i)=>{const d=new Date(ws);d.setDate(d.getDate()+i);return d>=track?dayBudget(new Date(d.getFullYear(),d.getMonth(),d.getDate(),12)):0});if(!state.ui.adaptive)return bases;let pastSpent=0;for(let i=0;i<idx;i++){const d=new Date(ws);d.setDate(d.getDate()+i);if(d>=track)pastSpent+=spendOnDay(d)}const pool=Math.max(0,weeklyBudget()-pastSpent),baseRemain=bases.slice(idx).reduce((a,b)=>a+b,0),targets=[...bases];if(baseRemain>0){for(let i=idx;i<7;i++)targets[i]=pool*bases[i]/baseRemain}return targets}
-function activeDayBudget(){return isTrackedDay(fdate())?(adaptiveTargets()[fdate().getDay()]||dayBudget()):0}
+function adaptiveTargets(){
+  const ws=wstart(),today=fdate(),idx=today.getDay(),track=trackingStartDate();
+  const bases=Array.from({length:7},(_,i)=>{const d=new Date(ws);d.setDate(d.getDate()+i);
+    return d>=track?dayBudget(new Date(d.getFullYear(),d.getMonth(),d.getDate(),12)):0});
+  if(!state.ui.adaptive)return bases;
+  // ما صُرف قبل اليوم
+  let pastSpent=0;
+  for(let i=0;i<idx;i++){const d=new Date(ws);d.setDate(d.getDate()+i);if(d>=track)pastSpent+=spendOnDay(d)}
+  // المتاح لليوم وما بعده
+  const pool=Math.max(0,weeklyBudget()-pastSpent);
+  const baseRemain=bases.slice(idx).reduce((a,b)=>a+b,0);
+  const targets=[...bases];
+  if(baseRemain>0){for(let i=idx;i<7;i++)targets[i]=pool*bases[i]/baseRemain}
+  else {for(let i=idx;i<7;i++)targets[i]=0}
+  // لو تجاوزت حد اليوم، أعد توزيع ما تبقى على بقية الأسبوع فورًا
+  const spentToday=spendOnDay(today);
+  if(idx<6){
+    const over=spentToday-targets[idx];
+    if(over>0){
+      const futureBase=bases.slice(idx+1).reduce((a,b)=>a+b,0);
+      if(futureBase>0)for(let i=idx+1;i<7;i++)targets[i]=Math.max(0,targets[i]-over*bases[i]/futureBase);
+      else for(let i=idx+1;i<7;i++)targets[i]=0
+    }
+  }
+  return targets.map(v=>Math.max(0,v))
+}
+function activeDayBudget(){
+  if(!isTrackedDay(fdate()))return 0;
+  const t=adaptiveTargets()[fdate().getDay()];
+  return Number.isFinite(t)?Math.max(0,t):dayBudget()
+}
 function adaptiveDelta(){const ws=wstart(),idx=fdate().getDay(),track=trackingStartDate();let basePast=0,spentPast=0;for(let i=0;i<idx;i++){const d=new Date(ws);d.setDate(d.getDate()+i);if(d>=track){basePast+=dayBudget(new Date(d.getFullYear(),d.getMonth(),d.getDate(),12));spentPast+=spendOnDay(d)}}return basePast-spentPast}
 function monthAllocationForToday(){const now=fdate(),b=currentCycle(),remain=Math.max(0,monthRemaining()),track=trackingStartDate();let weights=0,d=new Date(now);while(d<b.endExclusive){if(d>=track)weights+=dayBudget(new Date(d.getFullYear(),d.getMonth(),d.getDate(),12));d.setDate(d.getDate()+1)}return weights>0?remain*dayBudget(new Date(now.getFullYear(),now.getMonth(),now.getDate(),12))/weights:remain}
 function safeToSpend(){const todayRemain=Math.max(0,activeDayBudget()-todaySpend()),weekRemain=Math.max(0,weeklyBudget()-weekSpend()),monthCap=monthOverrideActive()?Math.max(0,monthAllocationForToday()):todayRemain;return Math.max(0,Math.min(todayRemain,weekRemain,monthCap))}
@@ -2044,6 +2083,7 @@ function renderV5Intelligence(){
 try{renderMoneyPanes()}catch(e){console.error('money panes',e)}
 try{renderTodayStats()}catch(e){console.error('today stats',e)}
 try{renderInsights()}catch(e){console.error('insights',e)}
+try{renderOverBanner()}catch(e){}
  for(const[id,tab]of[['homeNav','home'],['budgetNav','budget'],['insightsNav','insights'],['splitsNav','splits']])$(id)?.classList.toggle('on',current===tab);
  const labels={home:`${shortDays[fdate().getDay()]} • ميزانية اليوم ${fmt(activeDayBudget())} ر.س`,budget:'ميزانية الفئات ومسار الدورة',insights:'التحليل المالي الذكي',splits:'إدارة القطات والتحصيل'};$('dayLabel').textContent=labels[current]||labels.home;
  const classRows=classificationReviewRows(),paces=CATEGORY_LIST.map(categoryPace).filter(x=>x.budget>0),badPaces=paces.filter(x=>['warn','fast','over'].includes(x.status)),anoms=unusualTransactions();$('attentionClassCount').textContent=classRows.length;$('attentionBudgetCount').textContent=badPaces.length;$('attentionAnomalyCount').textContent=anoms.length;$('attentionTotal').textContent=classRows.length+badPaces.length+anoms.length;
@@ -2523,7 +2563,7 @@ function renderMoneyPanes(){
   const is=state.ui.insightSeg==='spend'?'spend':'wealth';
   $('segSpend')?.classList.toggle('on',is==='spend');$('segWealth')?.classList.toggle('on',is==='wealth');
   $('spendPane')?.classList.toggle('hidden',is!=='spend');$('wealthPane')?.classList.toggle('hidden',is!=='wealth');
-  $('insightPageSub').textContent=is==='spend'?'قراءة لسلوك الصرف، وليس رسومًا للتجميل':'نموّ ثروتك بمرور الوقت';
+  $('insightPageSub').textContent=is==='spend'?'قراءة لسلوك الصرف، وليس رسومًا للتجميل':'نموّ ثروتك بمرور الوقت';{const h=document.querySelector('#insightsView .tabPageTitle h2');if(h)h.textContent=is==='spend'?'تحليل المصروف':'الثروة'}
   const ss=state.ui.splitSeg==='loans'?'loans':'splits';
   $('segSplits')?.classList.toggle('on',ss==='splits');$('segLoans')?.classList.toggle('on',ss==='loans');
   $('splitsPane')?.classList.toggle('hidden',ss!=='splits');$('loansPane')?.classList.toggle('hidden',ss!=='loans');
@@ -3032,6 +3072,29 @@ function renderInsights(){
   if(card)card.classList.toggle('hidden',!items.length);
   host.innerHTML=items.map(x=>
     `<div class="insightRow ${x.k}"><i>${x.i}</i><div><b>${x.t}</b><small>${x.s}</small></div></div>`).join('')
+}
+
+function renderOverBanner(){
+  const el=$('overBanner');if(!el)return;
+  const wb=weeklyBudget(), ws=weekSpend();
+  const over=ws-wb;
+  const today=activeDayBudget(), spentToday=todaySpend();
+  if(over>0.5){
+    el.className='overBanner show';
+    el.innerHTML=`<i>▲</i><div><b>تجاوزت ميزانية الأسبوع بـ ${fmt(over)} ر.س</b><small>${today<=0?'ما بقي حد لليوم — أي صرف الآن يزيد التجاوز':'حدك اليوم '+fmt(today)+' ر.س بعد إعادة التوزيع'}</small></div>`
+  } else if(today<=0 && spentToday>0){
+    el.className='overBanner show warn';
+    el.innerHTML=`<i>!</i><div><b>خلّصت حد اليوم</b><small>باقي من الأسبوع ${fmt(Math.max(0,wb-ws))} ر.س • الأفضل تأجل الصرف لبكرة</small></div>`
+  } else el.className='overBanner';
+}
+
+function topMerchantIn(cat,from,to){
+  const rows=state.txns.filter(t=>!t.ignored&&(+t.impact||0)>0&&(t.category||'أخرى')===cat&&
+    new Date(t.ts)>=from&&new Date(t.ts)<to);
+  if(!rows.length)return null;
+  const by={};rows.forEach(t=>{const k=(t.note||t.label||'').trim()||'غير محدد';by[k]=(by[k]||0)+(+t.impact||0)});
+  const top=Object.entries(by).sort((a,b)=>b[1]-a[1])[0];
+  return top?{name:top[0],sum:top[1],n:rows.length}:null
 }
 
 function render(){
